@@ -34,7 +34,7 @@ int Filmotheque::sauvegarder(string p_fichier)
 		for (unsigned int i = 0 ; i < m_filmotheque.size() ; i++)
 		{
 			fichier << m_filmotheque.at(i) << endl;
-//			fichier << "**" << endl;
+			fichier << "**" << endl;
 		}
 		fichier.close();  // on referme le fichier
 		return 0;
@@ -58,6 +58,9 @@ int Filmotheque::charger(string p_fichier)
 		string m_titre;
 		bool m_dvd = false;
 		string m_fichier = "";
+		string m_realisateur = "";
+		string m_annee = "";
+		string m_resume = "";
 		
         while ( getline( fichier, ligne ) )
         {
@@ -65,6 +68,7 @@ int Filmotheque::charger(string p_fichier)
 			{
 				case 0:
 					m_titre = ligne;
+					cout << ligne << endl;
 					break;
 				case 1:
 					if (ligne == "dvd") m_dvd = true;
@@ -72,11 +76,29 @@ int Filmotheque::charger(string p_fichier)
 					{
 						m_dvd = false;
 						m_fichier = ligne;
-						
 					}
-					Film film(m_titre, m_dvd, m_fichier);
+					cout << ligne << endl;
+					break;
+ 				case 2:
+ 					m_realisateur = ligne;
+					cout << ligne << endl;
+ 					break;
+				case 3:
+					m_annee = ligne;
+					cout << ligne << endl;
+					break;
+				case 4:
+					while (ligne != "**")
+					{
+						m_resume += ligne;
+						getline( fichier, ligne );
+						if (ligne != "**") m_resume += "\n";
+					}
+					Film film(m_titre, m_dvd, m_fichier, m_realisateur, m_annee, m_resume);
 					m_filmotheque.push_back(film);
+					m_resume = "";
 					compteur = -1;
+					cout << ligne << endl;
 					break;
 			}
 			compteur ++;
