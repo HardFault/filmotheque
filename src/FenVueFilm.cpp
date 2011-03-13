@@ -18,4 +18,12 @@ FenVueFilm::FenVueFilm(Film p_film, QWidget *parent = 0) : QDialog(parent)
 	setLayout(layoutPrincipal);
 
 	connect(fermer, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(editer, SIGNAL(clicked()), this, SLOT(s_editer()));
+}
+
+void FenVueFilm::s_editer()
+{
+	FenEditFilm* fenEditFilm = new FenEditFilm(this);
+	fenEditFilm->setWindowTitle("Editer");
+	fenEditFilm->exec();
 }

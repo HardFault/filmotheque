@@ -9,6 +9,7 @@
 #include "Film.h"
 #include "Filmotheque.h"
 #include "FenVueFilm.h"
+#include "FenEditFilm.h"
 
 using namespace std;
 
@@ -21,6 +22,7 @@ public:
 	
 private slots:
 	void filmSelected(QListWidgetItem* p_item);
+	void ouvrir();
 	
 	
 private:

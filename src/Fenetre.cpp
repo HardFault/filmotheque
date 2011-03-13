@@ -7,15 +7,15 @@ Fenetre::Fenetre()
 	
 	// Création des menus
 	QMenu* menuFichier = menuBar()->addMenu("&Fichier");
-	QAction* actionOuvrir = menuFichier->addAction("&Ouvrir");
-	actionOuvrir->setShortcut(QKeySequence("Ctrl+O"));
-	actionOuvrir->setIcon(QIcon::fromTheme("document-open"));	// /usr/share/icons/oxygen/48x48/actions/
-	actionOuvrir->setStatusTip("Ouvre un film");
+	QAction* actionNouveau = menuFichier->addAction("&Nouveau");
+	actionNouveau->setShortcut(QKeySequence("Ctrl+N"));
+	actionNouveau->setIcon(QIcon::fromTheme("document-new"));	// /usr/share/icons/oxygen/48x48/actions/
+	actionNouveau->setStatusTip("Créer un nouveau film");
 	
 	// Création de la barre d'outils
 	QToolBar *toolBarFichier = addToolBar("Fichier");
 	toolBarFichier->setMovable(false);
-	toolBarFichier->addAction(actionOuvrir);
+	toolBarFichier->addAction(actionNouveau);
 	
 // 	QTreeView* treeView = new QTreeView();
 // 	setCentralWidget(treeView);
@@ -29,6 +29,7 @@ Fenetre::Fenetre()
 	}
 	
 	connect(listWidget, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(filmSelected(QListWidgetItem*)));
+	connect(actionNouveau, SIGNAL(triggered()), this, SLOT(ouvrir()));
 }
 
 void Fenetre::filmSelected(QListWidgetItem* p_item)
@@ -36,7 +37,14 @@ void Fenetre::filmSelected(QListWidgetItem* p_item)
 	QFilm* qfilm = static_cast<QFilm*>(p_item);
 	Film film = qfilm->film();
 	cout << "Film sélectionné : " << film << endl;
-	FenVueFilm *fenVueFilm = new FenVueFilm(film, this);
+	FenVueFilm* fenVueFilm = new FenVueFilm(film, this);
 	fenVueFilm->setWindowTitle(QString::fromStdString(film.titre()));
     fenVueFilm->exec();
+}
+
+void Fenetre::ouvrir()
+{
+	FenEditFilm* fenEditFilm = new FenEditFilm(this);
+	fenEditFilm->setWindowTitle("Nouveau");
+	fenEditFilm->exec();
 }
