@@ -19,6 +19,7 @@ class Fenetre : public QMainWindow
 	
 public:
 	Fenetre();
+	void closeEvent(QCloseEvent *event);
 	
 private slots:
 	void filmSelected(QListWidgetItem* p_item);

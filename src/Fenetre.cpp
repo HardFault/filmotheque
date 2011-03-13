@@ -48,3 +48,8 @@ void Fenetre::ouvrir()
 	fenEditFilm->setWindowTitle("Nouveau");
 	fenEditFilm->exec();
 }
+
+void Fenetre::closeEvent(QCloseEvent *event)
+{
+	m_filmotheque.sauvegarder(".filmotheque2");
+}
