@@ -2,6 +2,7 @@
 
 Fenetre::Fenetre()
 {
+	resize(640, 480);
 	m_filmotheque.charger(".filmotheque");
 	
 	// Création des menus
@@ -35,4 +36,7 @@ void Fenetre::filmSelected(QListWidgetItem* p_item)
 	QFilm* qfilm = static_cast<QFilm*>(p_item);
 	Film film = qfilm->film();
 	cout << "Film sélectionné : " << film << endl;
+	FenVueFilm *fenVueFilm = new FenVueFilm(film, this);
+	fenVueFilm->setWindowTitle(QString::fromStdString(film.titre()));
+    fenVueFilm->exec();
 }

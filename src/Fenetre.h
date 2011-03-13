@@ -8,6 +8,7 @@
 #include "QFilm.h"
 #include "Film.h"
 #include "Filmotheque.h"
+#include "FenVueFilm.h"
 
 using namespace std;
 
